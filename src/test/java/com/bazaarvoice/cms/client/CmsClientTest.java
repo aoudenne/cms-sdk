@@ -62,7 +62,7 @@ public class CmsClientTest {
         DecisionResponse decision = cmsClient.getNextDecision(request.getAccountSegment());
         Assert.assertNotNull(decision);
 
-        cmsClient.acknowledgeDecision(decision.getDecisionAckUuid(),decision.getSubmissionUuid());
+        cmsClient.acknowledgeDecision(decision);
     }
 
     @Test

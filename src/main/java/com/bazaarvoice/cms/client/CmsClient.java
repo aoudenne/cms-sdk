@@ -154,6 +154,10 @@ public class CmsClient {
     public String acknowledgeDecision(String decisionUuid, String contentSubmissionUuid)
             throws CmsException {
 
+        if (contentSubmissionUuid == null) {
+            return "SUCCESS";
+        }
+
         try {
             UriBuilder uriBuilder = jerseyClient.resource(config.getHostAndPort() + URL_PATH + "decision").getUriBuilder();
             uriBuilder.queryParam("contentSubmissionUuid", contentSubmissionUuid);
