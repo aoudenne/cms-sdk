@@ -16,6 +16,10 @@
 
     <name>BAZAARVOICE CMS SDK</name>
 
+    <scm>
+        <connection>scm:git:git@github.com:bazaarvoice/cms-sdk.git</connection>
+    </scm>
+
     <properties>
         <jackson.version>1.9.1</jackson.version>
         <jersey.version>1.11</jersey.version>
