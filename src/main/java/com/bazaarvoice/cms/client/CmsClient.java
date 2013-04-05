@@ -86,7 +86,7 @@ public class CmsClient {
         }
     }
 
-    public DecisionResponse getDecision(String submissionId)
+    public DecisionResponse getCurrentInfoForDebugging(String submissionId)
             throws CmsException {
 
         try {

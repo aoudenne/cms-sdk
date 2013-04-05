@@ -78,7 +78,7 @@ public class CmsClientTest {
                 Thread.sleep(500);
             } catch (InterruptedException e) { }
             try {
-                decision = cmsClient.getDecision(submissionId);
+                decision = cmsClient.getCurrentInfoForDebugging(submissionId);
                 Assert.assertNotNull(decision);
                 Assert.assertNotNull(decision.getSubmissionUuid());
                 break;

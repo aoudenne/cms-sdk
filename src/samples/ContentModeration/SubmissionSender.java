@@ -1,13 +1,12 @@
 import com.bazaarvoice.cms.client.CmsClient;
 import com.bazaarvoice.cms.client.CmsClientConfig;
-import com.bazaarvoice.cms.client.DecisionResponse;
 import com.bazaarvoice.cms.client.Submission;
 import com.bazaarvoice.cms.client.WellKnownContentField;
 import com.bazaarvoice.cms.client.WellKnownContentType;
 import com.bazaarvoice.cms.client.WellKnownContextField;
 import com.bazaarvoice.cms.client.exception.CmsException;
 
-public class ModerationSample {
+public class SubmissionSender {
 
     private CmsClient cmsClient;
 
@@ -18,7 +17,7 @@ public class ModerationSample {
             return;
         }
 
-        ModerationSample example = new ModerationSample("https://sandbox.api.bazaarvoice.com",
+        SubmissionSender example = new SubmissionSender("https://sandbox.api.bazaarvoice.com",
                 args[0],
                 "NotUsed-testSecretKey");
 
@@ -29,48 +28,15 @@ public class ModerationSample {
             e.printStackTrace();
         }
 
-        try {
-            example.pollForFirstAvailableModerationDecision();
-        } catch (CmsException e) {
-            System.out.println("Problem polling for moderation decisions");
-            e.printStackTrace();
-        }
     }
 
-    public ModerationSample(String url,String apiKey, String apiSecret) {
+    public SubmissionSender(String url, String apiKey, String apiSecret) {
 
         CmsClientConfig config = new CmsClientConfig.Builder(url,apiKey,apiSecret)
                 .withDisableCertAndHostValidation(true)
                 .build();
         cmsClient = new CmsClient(config);
         cmsClient.setDebugOn();
-    }
-
-    public void pollForFirstAvailableModerationDecision()
-            throws CmsException {
-
-        // Blocks up to 20 seconds waiting for an available decision
-        DecisionResponse decision = cmsClient.getNextDecision();
-        System.out.println(decision);
-
-        // See if a moderation decision was available.
-        if (decision.getSubmissionUuid() != null) {
-            System.out.println(String.format("Submission %s had the following moderation result",decision.getSubmissionUuid()));
-            for (DecisionResponse.DecisionAreaResponse response : decision.getDecisionAreas().values()) {
-                if (response.isApproved()) {
-                    System.out.println("Approved!");
-                } else {
-                    System.out.println("Not Approved!");
-                }
-            }
-
-            // Acknowledge or same decision will be returned by cmsClient.getNextDecision()
-            cmsClient.acknowledgeDecision(decision);
-
-        } else {
-            System.out.println("No Moderation results available");
-        }
-
     }
 
     public void postSubmission()
@@ -102,5 +68,4 @@ public class ModerationSample {
                                 .withModeratablePhoto("https://secure.gravatar.com/avatar/da742a6f2dde2b9d231436c89bba4ff8?s=420&d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png", "Joe's Gravatar")
                 );
     }
-
 }
