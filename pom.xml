@@ -16,7 +16,9 @@
     <name>BAZAARVOICE CMS SDK</name>
 
     <scm>
+        <url>https://github.com/bazaarvoice/cms-sdk</url>
         <connection>scm:git:git@github.com:bazaarvoice/cms-sdk.git</connection>
+        <developerConnection>scm:git:git@github.com:bazaarvoice/cms-sdk.git</developerConnection>
     </scm>
 
     <properties>
