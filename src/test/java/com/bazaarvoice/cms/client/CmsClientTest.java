@@ -10,15 +10,23 @@ import org.junit.Test;
 import java.util.List;
 
 public class CmsClientTest {
-    private static final String HOST_AND_PORT = "https://sandbox.api.bazaarvoice.com";
-    private static final String API_KEY = "nwnaumagavkqesvyaqtsy6tw";
-    private static final String SECRET_KEY = "testSecretKey";
+    private static final String DEFAULT_URL = "https://sandbox.api.bazaarvoice.com";
+    private static final String DEFAULT_API_KEY = "nwnaumagavkqesvyaqtsy6tw";
+    private static final String DEFAULT_SECRET_KEY = "testSecretKey";
 
     private CmsClient cmsClient;
 
+    private String url;
+    private String secret;
+    private String apikey;
+
     @Before
     public void setup() {
-        CmsClientConfig config = new CmsClientConfig.Builder(HOST_AND_PORT, API_KEY, SECRET_KEY)
+        url = (System.getProperty("url") == null) ? DEFAULT_URL : System.getProperty("url");
+        apikey = (System.getProperty("apikey") == null) ? DEFAULT_API_KEY : System.getProperty("apikey");
+        secret = (System.getProperty("secret") == null) ? DEFAULT_SECRET_KEY : System.getProperty("secret");
+
+        CmsClientConfig config = new CmsClientConfig.Builder(url, apikey, secret)
                 .withDisableCertAndHostValidation(true)
                 .build();
         cmsClient = new CmsClient(config);
@@ -100,7 +108,7 @@ public class CmsClientTest {
 
     @Test
     public void testUnauthorizedApiCall() {
-        CmsClientConfig config = new CmsClientConfig.Builder(HOST_AND_PORT, "bogus_key", SECRET_KEY)
+        CmsClientConfig config = new CmsClientConfig.Builder(url, "bogus_key", secret)
                 .withDisableCertAndHostValidation(true)
                 .build();
         cmsClient = new CmsClient(config);
