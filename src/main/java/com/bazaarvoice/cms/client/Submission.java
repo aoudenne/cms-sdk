@@ -8,6 +8,7 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -161,7 +162,8 @@ public class Submission {
             return addUrlComponents(urlKey + VIDEO_SUFFIX, url, captionKey, caption);
         }
 
-        public DecisionArea withModeratableBrightcoveVideo(String videoKey, String playerId, String publisherId, String videoId, String captionKey, String caption) {
+        public DecisionArea withModeratableBrightcoveVideo(String videoKey, String playerId, String publisherId, String videoId, String captionKey, String caption)
+                throws IOException {
             Map<String, String> attributes = new LinkedHashMap<String, String>();
             attributes.put("playerId", playerId);
             attributes.put("publisherId", publisherId);
