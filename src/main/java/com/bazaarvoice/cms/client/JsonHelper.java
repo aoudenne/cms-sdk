@@ -22,7 +22,7 @@ public class JsonHelper {
     }
 
     public static <T> T fromJson(File file, Class<T> type)
-            throws IOException {
+            throws IOException, JsonParseException, JsonMappingException {
         return JSON.readValue(file, type);
     }
 }
