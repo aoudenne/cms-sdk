@@ -35,7 +35,9 @@ public enum WellKnownContextField {
     QuestionSubject("questionSubject"),
     StoryId("storyId"),
     StoryTitle("storyTitle"),
-    StoryText("storyText");
+    StoryText("storyText"),
+    SubmissionAgent("submissionAgent"),
+    MatchingEngine("matchingEngine");
 
     private final String value;
 
@@ -50,3 +52,4 @@ public enum WellKnownContextField {
         return null;
     }
 }
+
