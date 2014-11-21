@@ -25,7 +25,6 @@ public enum WellKnownContentField {
     Client("client"),
     Confidence("confidence");
 
-
     private final String value;
 
     public static WellKnownContentField fromValue(String value) {
