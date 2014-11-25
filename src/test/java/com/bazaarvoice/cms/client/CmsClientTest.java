@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CmsClientTest {
     private static final String DEFAULT_URL = "https://sandbox.cms.bazaarvoice.com";
-    private static final String DEFAULT_API_KEY = "nwnaumagavkqesvyaqtsy6tw";
+    private static final String DEFAULT_API_KEY = "testApiKey";
     private static final String DEFAULT_SECRET_KEY = "testSecretKey";
 
     private CmsClient cmsClient;

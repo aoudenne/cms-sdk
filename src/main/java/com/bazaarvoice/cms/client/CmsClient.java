@@ -185,8 +185,7 @@ public class CmsClient {
         UriBuilder uriBuilder = jerseyClient.resource(config.getHostAndPort() + "/api/1/alive").getUriBuilder();
         WebResource.Builder builder = jerseyClient.resource(uriBuilder.build())
                 .type(MediaType.APPLICATION_JSON_TYPE);
-        builder = sign(builder,null);
-        ClientResponse response = null;
+        ClientResponse response;
         try {
             response = builder.get(ClientResponse.class);
         } catch (ClientHandlerException e) {
