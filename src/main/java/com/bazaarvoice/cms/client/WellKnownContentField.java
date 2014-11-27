@@ -20,7 +20,10 @@ public enum WellKnownContentField {
     CommentTitle("commentTitle"),
     CommentText("commentText"),
     Nickname("nickname"),
-    Location("location");
+    Location("location"),
+    ExternalId("productId"),
+    Client("client"),
+    Confidence("confidence");
 
     private final String value;
 

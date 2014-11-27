@@ -6,6 +6,7 @@ import com.bazaarvoice.cms.client.exception.CmsNetworkException;
 import com.bazaarvoice.cms.client.jersey.JerseyClientFactory;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
+import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.filter.LoggingFilter;
@@ -178,5 +179,23 @@ public class CmsClient {
     public String acknowledgeDecision(DecisionResponse decision)
             throws CmsException {
         return acknowledgeDecision(decision.getDecisionAckUuid(),decision.getSubmissionUuid());
+    }
+
+    public boolean checkIfCMSAvailable() {
+        UriBuilder uriBuilder = jerseyClient.resource(config.getHostAndPort() + "/api/1/alive").getUriBuilder();
+        WebResource.Builder builder = jerseyClient.resource(uriBuilder.build())
+                .type(MediaType.APPLICATION_JSON_TYPE);
+        ClientResponse response;
+        try {
+            response = builder.get(ClientResponse.class);
+        } catch (ClientHandlerException e) {
+            //Service is not running
+            return false;
+        }
+        if (response.getStatus() != 200) {
+            //There is some problem with the service
+            return false;
+        }
+        return true;
     }
 }

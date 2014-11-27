@@ -11,7 +11,8 @@ public enum WellKnownContentType {
     QUESTION("Question"),
     ANSWER("Answer"),
     STORY("Story"),
-    COMMENT("Comment");
+    COMMENT("Comment"),
+    PRODUCT_MATCH("ProductMatch");
 
     private final String value;
 

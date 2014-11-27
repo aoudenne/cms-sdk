@@ -58,5 +58,7 @@ public class DecisionResponse {
         private String quotedField;
         private int selectionStartIndex;
         private int selectionEndIndex;
+        private String userComment;
     }
 }
+

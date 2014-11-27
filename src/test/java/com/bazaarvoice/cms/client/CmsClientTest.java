@@ -10,8 +10,8 @@ import org.junit.Test;
 import java.util.List;
 
 public class CmsClientTest {
-    private static final String DEFAULT_URL = "https://sandbox.api.bazaarvoice.com";
-    private static final String DEFAULT_API_KEY = "nwnaumagavkqesvyaqtsy6tw";
+    private static final String DEFAULT_URL = "https://sandbox.cms.bazaarvoice.com";
+    private static final String DEFAULT_API_KEY = "testApiKey";
     private static final String DEFAULT_SECRET_KEY = "testSecretKey";
 
     private CmsClient cmsClient;
@@ -31,6 +31,11 @@ public class CmsClientTest {
                 .build();
         cmsClient = new CmsClient(config);
         cmsClient.setDebugOn();
+    }
+
+    @Test
+    public void testIfServiceAvailable() {
+        Assert.assertTrue(cmsClient.checkIfCMSAvailable());
     }
 
     @Test
@@ -91,7 +96,7 @@ public class CmsClientTest {
                 Assert.assertNotNull(decision.getSubmissionUuid());
                 break;
             } catch (CmsException e) { }
-            if (i++ > 50) {
+            if (i++ > 100) {
                 break;
             }
         }
@@ -118,7 +123,7 @@ public class CmsClientTest {
             String submissionId = cmsClient.submitContent(request);
             Assert.fail("Expected a CmsApiException");
         } catch (CmsApiException e) {
-           Assert.assertEquals(403,e.getHttpStatusCode());
+           Assert.assertEquals(401,e.getHttpStatusCode());
         } catch (CmsException e ) {
             Assert.fail("Expected a CmsApiException instead of this: " + e.toString());
         }
