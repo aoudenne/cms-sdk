@@ -13,19 +13,23 @@ import java.util.Map;
 @Data
 @JsonIgnoreProperties (ignoreUnknown = true)
 public class DecisionResponse {
-    public ContextResponse context;
-    public String submissionUuid;
-    public String decisionAckUuid;
-    public boolean moderationComplete;
-    public Map<String, String> moderationStates = new HashMap<String, String>();
-    public Map<String, DecisionAreaResponse> decisionAreas = new HashMap<String, DecisionAreaResponse>();
-    public Map<String, String> additionalInfo = new HashMap<String, String>();
+    private ContextResponse context;
+    private String submissionUuid;
+    private String decisionAckUuid;
+    private boolean moderationComplete;
+    private Map<String, String> moderationStates = new HashMap<String, String>();
+    private Map<String, DecisionAreaResponse> decisionAreas = new HashMap<String, DecisionAreaResponse>();
+    private Map<String, String> additionalInfo = new HashMap<String, String>();
 
     @Builder
-    public DecisionResponse(ContextResponse contextResponse, String submissionUuid, String decisionAckUuid, boolean moderationComplete, Map<String, String> moderationStates,
-    Map<String, DecisionAreaResponse> decisionAreas,
-    Map<String, String> additionalInfo) {
-        this.context = contextResponse;
+    public DecisionResponse(ContextResponse context,
+                            String submissionUuid,
+                            String decisionAckUuid,
+                            boolean moderationComplete,
+                            Map<String, String> moderationStates,
+                            Map<String, DecisionAreaResponse> decisionAreas,
+                            Map<String, String> additionalInfo) {
+        this.context = context;
         this.submissionUuid = submissionUuid;
         this.decisionAckUuid = decisionAckUuid;
         this.moderationComplete = moderationComplete;
@@ -40,19 +44,29 @@ public class DecisionResponse {
     @Builder
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ContextResponse {
-        public String contentType;
-        public String locale;
-        public String client;
+        private String contentType;
+        private String locale;
+        private String client;
+
+        public ContextResponse(String contentType,
+                               String locale,
+                               String client) {
+            this.contentType = contentType;
+            this.locale = locale;
+            this.client = client;
+        }
+
+        public ContextResponse() {}
     }
 
     @Data
     @Builder
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class DecisionAreaResponse {
-        public String name;
-        public String decision;
-        public List<ModerationResponse> moderationResults = new ArrayList<ModerationResponse>();
-        public Map<String, String> context = new LinkedHashMap<String, String>();
+        private String name;
+        private String decision;
+        private List<ModerationResponse> moderationResults = new ArrayList<ModerationResponse>();
+        private Map<String, String> context = new LinkedHashMap<String, String>();
 
         public boolean isApproved() {
             return "approved".equalsIgnoreCase(decision);
@@ -65,19 +79,49 @@ public class DecisionResponse {
         public boolean isCanceled() {
             return "canceled".equalsIgnoreCase(decision);
         }
+
+        public DecisionAreaResponse(String name,
+                                    String decision,
+                                    List<ModerationResponse> moderationResults,
+                                    Map<String, String> context) {
+            this.name = name;
+            this.decision = decision;
+            this.moderationResults = moderationResults;
+            this.context = context;
+        }
+
+        public DecisionAreaResponse() {}
     }
 
     @Data
     @Builder
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ModerationResponse {
-        public String code;
-        public String codeFullName;
-        public String quotedText;
-        public String quotedField;
-        public int selectionStartIndex;
-        public int selectionEndIndex;
-        public String userComment;
+        private String code;
+        private String codeFullName;
+        private String quotedText;
+        private String quotedField;
+        private int selectionStartIndex;
+        private int selectionEndIndex;
+        private String userComment;
+
+        public ModerationResponse(String code,
+                                  String codeFullName,
+                                  String quotedText,
+                                  String quotedField,
+                                  int selectionStartIndex,
+                                  int selectionEndIndex,
+                                  String userComment) {
+            this.code = code;
+            this.codeFullName = codeFullName;
+            this.quotedText = quotedText;
+            this.quotedField = quotedField;
+            this.selectionStartIndex = selectionStartIndex;
+            this.selectionEndIndex = selectionEndIndex;
+            this.userComment = userComment;
+        }
+
+        public ModerationResponse() {}
     }
 }
 
