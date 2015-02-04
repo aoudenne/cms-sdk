@@ -1,6 +1,8 @@
 package com.bazaarvoice.cms.client;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Builder;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
@@ -11,6 +13,9 @@ import java.util.List;
 import java.util.Map;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @JsonIgnoreProperties (ignoreUnknown = true)
 public class DecisionResponse {
     private ContextResponse context;
@@ -21,46 +26,21 @@ public class DecisionResponse {
     private Map<String, DecisionAreaResponse> decisionAreas = new HashMap<String, DecisionAreaResponse>();
     private Map<String, String> additionalInfo = new HashMap<String, String>();
 
-    @Builder
-    public DecisionResponse(ContextResponse context,
-                            String submissionUuid,
-                            String decisionAckUuid,
-                            boolean moderationComplete,
-                            Map<String, String> moderationStates,
-                            Map<String, DecisionAreaResponse> decisionAreas,
-                            Map<String, String> additionalInfo) {
-        this.context = context;
-        this.submissionUuid = submissionUuid;
-        this.decisionAckUuid = decisionAckUuid;
-        this.moderationComplete = moderationComplete;
-        this.moderationStates = moderationStates;
-        this.decisionAreas = decisionAreas;
-        this.additionalInfo = additionalInfo;
-    }
-
-    public DecisionResponse() {}
-
     @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Builder
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ContextResponse {
         private String contentType;
         private String locale;
         private String client;
-
-        public ContextResponse(String contentType,
-                               String locale,
-                               String client) {
-            this.contentType = contentType;
-            this.locale = locale;
-            this.client = client;
-        }
-
-        public ContextResponse() {}
     }
 
     @Data
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class DecisionAreaResponse {
         private String name;
@@ -79,21 +59,11 @@ public class DecisionResponse {
         public boolean isCanceled() {
             return "canceled".equalsIgnoreCase(decision);
         }
-
-        public DecisionAreaResponse(String name,
-                                    String decision,
-                                    List<ModerationResponse> moderationResults,
-                                    Map<String, String> context) {
-            this.name = name;
-            this.decision = decision;
-            this.moderationResults = moderationResults;
-            this.context = context;
-        }
-
-        public DecisionAreaResponse() {}
     }
 
     @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Builder
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ModerationResponse {
@@ -104,24 +74,6 @@ public class DecisionResponse {
         private int selectionStartIndex;
         private int selectionEndIndex;
         private String userComment;
-
-        public ModerationResponse(String code,
-                                  String codeFullName,
-                                  String quotedText,
-                                  String quotedField,
-                                  int selectionStartIndex,
-                                  int selectionEndIndex,
-                                  String userComment) {
-            this.code = code;
-            this.codeFullName = codeFullName;
-            this.quotedText = quotedText;
-            this.quotedField = quotedField;
-            this.selectionStartIndex = selectionStartIndex;
-            this.selectionEndIndex = selectionEndIndex;
-            this.userComment = userComment;
-        }
-
-        public ModerationResponse() {}
     }
 }
 
